@@ -21,35 +21,36 @@ print(quantidade)
 print('-'*50)
 #ticket medio por produto em cada loja
 ticket_medio = (faturamento['Valor Final']/quantidade['Quantidade']).to_frame()
+ticket_medio = ticket_medio.rename(columns={0: 'Ticket Médio'})
 print(ticket_medio)
 
 #enviar por email
 
 def enviar_email():
-    corpo_email = '''
+    corpo_email = f'''
 
-    <>segue o relatório de vendas por cada loja.
+    <p>segue o relatório de vendas por cada loja.</p>
     
-    Faturamento:
-    {}
+    <p>Faturamento:</p>
+    {faturamento.to_html()}
     
-    Quantidade vendida:
-    {}
+    <p>Quantidade vendida:</p>
+    {quantidade.to_html()}
     
-    Ticket médio dos produtos em cada loja:
-    {}
+    <p>Ticket médio dos produtos em cada loja:</p>
+    {ticket_medio.to_html()}
     
-    Qualquer dúvida  estou à disposição.
+    <p>Qualquer dúvida  estou à disposição.</p>
     
-    att.,
-    Sidney
+    <p>att.,</p>
+    <p>Sidney</p>
     '''
 
     msg = email.message.Message()
     msg['Subject'] = "Assunto"
-    msg['From'] = 'seu email @gmail.com'
+    msg['From'] = 'seuemail@gmail.com'
     msg['To'] = 'destinatario@gmail.com'
-    password = 'sua senha'
+    password = 'suasenha'
     msg.add_header('Content-Type', 'text/html')
     msg.set_payload(corpo_email )
 
