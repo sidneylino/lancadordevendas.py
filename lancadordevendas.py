@@ -32,25 +32,25 @@ def enviar_email():
     <p>segue o relatório de vendas por cada loja.</p>
     
     <p>Faturamento:</p>
-    {faturamento.to_html()}
+    {faturamento.to_html(formatters={'Valor Final': 'R${:,.2f}'.format})}
     
     <p>Quantidade vendida:</p>
     {quantidade.to_html()}
     
     <p>Ticket médio dos produtos em cada loja:</p>
-    {ticket_medio.to_html()}
+    {ticket_medio.to_html(formatters={'Ticket Médio':'R${:,.2f}'.format})}
     
     <p>Qualquer dúvida  estou à disposição.</p>
     
     <p>att.,</p>
-    <p>Sidney</p>
+    <p>Seu nome</p>
     '''
 
     msg = email.message.Message()
-    msg['Subject'] = "Assunto"
-    msg['From'] = 'seuemail@gmail.com'
+    msg['Subject'] = "Tabelas de vendas"
+    msg['From'] = 'seu email@gmail.com'
     msg['To'] = 'destinatario@gmail.com'
-    password = 'suasenha'
+    password = 'sua senha'
     msg.add_header('Content-Type', 'text/html')
     msg.set_payload(corpo_email )
 
